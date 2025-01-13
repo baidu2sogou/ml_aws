@@ -11,19 +11,7 @@ for filename in glob.glob('public/photos/*.jpeg'):
         #####
         # Replace this code to populate the Labels key with the response from the service
         #####
-        entry["Labels"] =  [ 
-            {
-                "Name": "Label-ReplaceThis",
-                "Confidence": 95.63501739501953,
-                "Parents": []
-            },      
-            {
-                "Name": "Label-ReplaceThis",
-                "Confidence": 89.634765625,
-                "Parents": [{"Name": "Parent-ReplaceThis"}
-                ]
-            }
-        ]
+        entry["Labels"] = response["Labels"]
         combined.append(entry)
 
 print(json.dumps(combined, indent=2))
