@@ -29,8 +29,12 @@ for filename in glob.glob('raw_images/*.jpg'):
     #####
     # Replace this code with a solution to populate a dictionary with the results from textract
     #####
-    csv_row["ResponseId"] = "Sample-123"
-    csv_row["Notes"] = "Sample-I liked the movie."
+    for index in range(len(response["Blocks"])):
+        block = response["Blocks"][index]
+        if block["BlockType"] == "QUERY" and block["Query"]["Alias"] == "ResponseId":
+            csv_row["ResponseId"] = response["Blocks"][index+1]["Text"]
+        if block["BlockType"] == "QUERY" and block["Query"]["Alias"] == "Notes":    
+            csv_row["Notes"] = response["Blocks"][index+1]["Text"]
     csv_array.append(csv_row)
 
 writer = csv.DictWriter(sys.stdout, fieldnames=["ResponseId", "Notes"], dialect='excel')
